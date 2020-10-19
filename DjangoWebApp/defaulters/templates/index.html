@@ -1,0 +1,44 @@
+  
+{% extends 'base.html' %}
+
+{% block content%}
+
+    <h2>Find if the customer is a Credit card Defaulter</h2>
+
+    <h3>Please enter details:</h3>
+    <br>
+    {%  if results  %}
+    <form method="post" enctype="multipart/form-data" action="updateDatabase">
+    {% else %}
+    <form method="post" enctype="multipart/form-data" action="predictDefaulter">
+    {% endif %}
+    {% csrf_token %}
+    <div class="col-md-4 col-sm-4"><label for="fname">Student:</label></div> 
+    <input name="studentVal" type="text" value={{temp.student_Yes}}><br><br>
+
+    <div class="col-md-4 col-sm-4"><label for="lname">Balance:</label></div> 
+    <input type="int" id="lname" name="balVal" value={{temp.balance}}><br><br>
+
+    <div class="col-md-4 col-sm-4"><label for="fname">Income:</label></div> 
+    <input type="int" id="fname" name="incomeVal" value={{temp.income}}><br><br>
+    <br>
+
+    {%  if results  %}
+    <h1>Defaulter : {{results}}</h1>
+    <h3>If the response is good. Do you weant to save it in DB? </h3>
+    <input type="hidden" id="lname" name="defaulterVal" value={{results}}>
+    <input type="submit" value="Submit" /><br>
+    
+            
+    {% else%}
+    <input type="submit" value="Submit">
+
+    {% endif %}
+    
+</form>
+<br><br>
+<button><a href="/" class="smoothScroll">Reset</a></button>
+<br>
+
+
+{% endblock %}
